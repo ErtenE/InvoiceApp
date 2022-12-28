@@ -2,7 +2,7 @@
 import datetime
 
 corprationName = "East Repair Inc."
-corprationAddress = "1912 Harvest Lane New Yor, NY 12210"
+corprationAddress = "1912 Harvest Lane New York, NY 12210"
 now = datetime.datetime.now()
 
 
