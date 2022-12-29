@@ -11,10 +11,15 @@ class invoiceApp:
 
 
     def generate_serial():
-    serial= "A"
+    lot= "A"
     num = 1234567890
     counter = +=1
-    
+
+   serial = f"{num}{counter:05d}"
+    return serial
+
+    serial = generate_serial()
+    print(f"INVOICE #: {lot}, {serial}") 
 
     def __init__(self):
         self.billTo = ""
@@ -24,13 +29,13 @@ class invoiceApp:
         self.taxRate = 0.0625
         self.generator = ""
     
-    def generate_serial(self):
+    def """generate_serial(self):
         num = 123456789
         while True:
             yield "A" + str(num).zfill(9)
             num += 1
     def get_next_serial(self):
-        return next(self.generator)
+        return next(self.generator)"""
 
 
     def CustomerInformation(self):
@@ -62,7 +67,7 @@ class invoiceApp:
         print(corprationName)
         print(corprationAddress+"\n")
         print("Invoice Date: ", now)
-        print("Invoice #: ", get_next_serial())
+        print(generate_serial())
         print("===================\n")
 
         print("Qty\tDescription\tUnit Price\Amount")
