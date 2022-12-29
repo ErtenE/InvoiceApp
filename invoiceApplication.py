@@ -7,8 +7,15 @@ now = datetime.datetime.now()
 
 
 class invoiceApp:
+    
+
+
+    def generate_serial():
     serial= "A"
-    counter = int("0123456789")
+    num = 1234567890
+    counter = +=1
+    
+
     def __init__(self):
         self.billTo = ""
         self.shipTo = ""
