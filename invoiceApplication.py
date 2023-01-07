@@ -38,24 +38,7 @@ class invoiceApp:
         self.shipTo = input("Enter Addresss: ")
         self.taxNo = input("Enter Tax Number: ")
     
-    def storeInPostgres(self):
-        conn = psycopg2.connect (
-            host = "localhost",
-            user = "postgres",
-            password = "852654",
-            database = "invoiceApplication",
-            port = 5432
-            )
-                #create cursor
-        cursor = conn.cursor()
-
-        cursor.execute(
-             "INSERT INTO customers (name, address, tax_number) VALUES (%s, %s, %s)",
-             (self.billTo, self.shipTo, self.taxNo)
-        )
-
-        conn.commit()
-        cursor.close()
+    
 
     def salesItem(self):
         try:
@@ -103,7 +86,7 @@ while True:
         break
 
 
-app.storeInPostgres()  
+
 app.generateInvoice()
-#app.store_in_mongodb()
+
 
