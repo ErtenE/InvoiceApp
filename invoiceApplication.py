@@ -1,47 +1,61 @@
 
 import datetime
+import pymongo
+import psycopg2
+
 
 corprationName = "East Repair Inc."
 corprationAddress = "1912 Harvest Lane New York, NY 12210"
 now = datetime.datetime.now()
-
+date_time = now.strftime('%Y-%m-%d %H:%M:%S')
+num = 1234567890
+counter = 0
 
 class invoiceApp:
-    
-
-
-    def generate_serial():
-    lot= "A"
-    num = 1234567890
-    counter = +=1
-
-   serial = f"{num}{counter:05d}"
-    return serial
-
-    serial = generate_serial()
-    print(f"INVOICE #: {lot}, {serial}") 
-
+   
     def __init__(self):
         self.billTo = ""
         self.shipTo = ""
         self.taxNo = ""
         self.items = []
         self.taxRate = 0.0625
-        self.generator = ""
+        self.counter = 0
+        self.num= 1234567890
+        self.generator = self.generate_serial()
     
-    def """generate_serial(self):
-        num = 123456789
-        while True:
-            yield "A" + str(num).zfill(9)
-            num += 1
-    def get_next_serial(self):
-        return next(self.generator)"""
 
 
+    def generate_serial(self):
+    # Increment the counter
+        self.counter += 1
+        # Concatenate the counter with the base number to create the serial number
+        serial = f"{self.num}{self.counter:05d}"
+        return serial
+
+    
     def CustomerInformation(self):
         self.billTo = input("Enter Billing Name: ")
         self.shipTo = input("Enter Addresss: ")
         self.taxNo = input("Enter Tax Number: ")
+    
+    def storeInPostgres(self):
+        conn = psycopg2.connect (
+            host = "localhost",
+            user = "postgres",
+            password = "852654",
+            database = "invoiceApplication",
+            port = 5432
+            )
+                #create cursor
+        cursor = conn.cursor()
+
+        cursor.execute(
+             "INSERT INTO customers (name, address, tax_number) VALUES (%s, %s, %s)",
+             (self.billTo, self.shipTo, self.taxNo)
+        )
+
+        conn.commit()
+        cursor.close()
 
     def salesItem(self):
         try:
@@ -52,6 +66,7 @@ class invoiceApp:
         except ValueError:
             print("Invalid input. Please enter a valid quantity and unit price.")
 
+        
     print("INVOICE APPLICATION")
     print("===================================")
 
@@ -66,11 +81,11 @@ class invoiceApp:
         print("===================\n")
         print(corprationName)
         print(corprationAddress+"\n")
-        print("Invoice Date: ", now)
-        print(generate_serial())
+        print("Invoice Date: ", date_time)
+        print("Invoice #:", self.generator)
         print("===================\n")
 
-        print("Qty\tDescription\tUnit Price\Amount")
+        print("Qty\tDescription\tUnit Price\tAmount")
         for item in self.items:
             qty, description, unitPrice = item
             total += qty * unitPrice
@@ -87,4 +102,8 @@ while True:
     if response.lower() == "n":
         break
 
+
+app.storeInPostgres()  
 app.generateInvoice()
+#app.store_in_mongodb()
+
